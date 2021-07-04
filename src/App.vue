@@ -1,26 +1,63 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <my-input 
+    name="Usuario" 
+    :rules="{ required: true, min: 5 }"
+    :value="username.value"
+    @update="update"
+  ></my-input>
+  <my-input 
+    name="Password" 
+    :rules="{ required: true, min: 10 }"
+    :value="password.value">
+  </my-input>
+  <Button 
+    color="white" 
+    background="darkslateblue" 
+    :disabled="!valid" 
+  />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import Button from './components/Button.vue'
+import MyInput from './components/MyInput.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Button,
+    MyInput
+  },
+  data () {
+    return {
+      valid: true,
+      username: {
+        value: '',
+        valid: false
+      },
+      password: {
+        value: '',
+        valid: false
+      }
+    }
+  },
+  methods: {
+    update ( value ) {
+      console.log(value);
+    }
   }
+
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body {
+    font-family: arial;
+  }
 </style>
