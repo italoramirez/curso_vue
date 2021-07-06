@@ -9,42 +9,44 @@
 </template>
 
 <script>
-    export default {
-        name: 'MyInput',
-        props: {
-            name: {
-                type: String,
-                required: false
-            },
-            rules: {
-                type: Object
-            },
-            value: {
-                type: String
-            }
+export default {
+    name: 'MyInput',
+    props: {
+        name: {
+            type: String,
+            required: true
         },
-        
-        computed: {
-            error () {
-                if ( this.rules.required && !this.value.length === 0 ) {
-                    return 'Requerido';
-                } else if ( this.rules.min && this.value.length < this.rules.min) {
-                    return `Debe ingresar mínimo ${this.rules.min}`;
-                }
-                return '';
-            }
+        rules: {
+            type: Object
         },
-        methods: {
-            input ( $evt ) {
-                this.$emit('update', { 
-                    $value: $evt.target.value,
-                    name  : this.name 
-                });
-            }
+        value: {
+            type: String
         }
-
-        
-    }
+    },
+    computed: {
+        error () {
+            // console.log(this.rules.required);
+            //Se puede dejar sin el valor = 0 ya que viene con value, pero se niega => !
+            if ( this.rules.required && !this.value ) {
+            // if ( this.rules.required && this.value.length === 0 ) {
+                return 'Requerido';
+            }
+            if ( this.rules.min && this.value.length < this.rules.min) {
+                return `Debe ingresar mínimo ${this.rules.min}`;
+            }   
+            return '';
+        }
+    },
+    methods: {
+        input ( $evt ) {
+            this.$emit('update', { 
+                $value: $evt.target.value,
+                name  : this.name 
+            });
+            // this.$emit('update', $evt.target.value);
+        }
+    }    
+}
 </script>
 
 <style scoped>
