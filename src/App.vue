@@ -5,10 +5,13 @@
     :value="usuario.value"
     @update="update" 
   />
+  <!-- {{ usuario }} -->
   <my-input 
     name="Password" 
     :rules="{ required: true, min: 10 }"
-    :value="password.value">
+    :value="password.value"
+    @update="update" 
+  >
   >
   </my-input>
   <Button 
@@ -33,7 +36,7 @@ export default {
     return {
       valid: true,
       usuario: {
-        value: 'users',
+        value: '',
         valid: false
       },
       password: {
@@ -42,10 +45,17 @@ export default {
       }
     }
   },
+  computed: {
+    
+  },
   methods: {
     update ( payload ) {
       console.log(payload);
-      this[payload.name.toLowerCase()].value = payload.value;
+      this[payload.name.toLowerCase()] = {
+          value: payload.value,
+          valid: payload.valid
+        
+      }
     }
   }
 

@@ -25,23 +25,27 @@ export default {
     },
     computed: {
         error () {
-            // console.log(this.rules.required);
-            //Se puede dejar sin el valor = 0 ya que viene con value, pero se niega => !
-            if ( this.rules.required && !this.value ) {
-            // if ( this.rules.required && this.value.length === 0 ) {
-                return 'Requerido';
-            }
-            if ( this.rules.min && this.value.length < this.rules.min) {
-                return `Debe ingresar mínimo ${this.rules.min}`;
-            }   
-            return '';
+            return this.validar(this.value);
         }
     },
     methods: {
+
+        validar (value) {
+            // console.log(this.rules.required);
+            //Se puede dejar sin el valor = 0 ya que viene con value, pero se niega => !
+            if ( this.rules.required && !value ) {
+            // if ( this.rules.required && this.value.length === 0 ) {
+                return 'Requerido';
+            }
+            if ( this.rules.min && value.length < this.rules.min) {
+                return `Debe ingresar mínimo ${this.rules.min}`;
+            }
+        },
         input ( $evt ) {
             this.$emit('update', { 
-                $value: $evt.target.value,
-                name  : this.name 
+                value: $evt.target.value,
+                name  : this.name,
+                valid: this.validar($evt.target.value) ? false : true
             });
             // this.$emit('update', $evt.target.value);
         }
