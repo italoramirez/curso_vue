@@ -4,7 +4,7 @@
             <label :for="name"> {{ name }} </label>
             <div class="error">{{ error }}</div>
         </div>
-        <input :id="name" type="text" :value="value" @input="input">
+        <input :id="name" :type="type" :value="value" @input="input">
     </div>
 </template>
 
@@ -20,6 +20,9 @@ export default {
             type: Object
         },
         value: {
+            type: String
+        },
+        type: {
             type: String
         }
     },
